@@ -1,6 +1,7 @@
 # Vellum
 
-[![CI Status](https://img.shields.io/travis/24823437/Vellum.svg?style=flat)](https://travis-ci.org/24823437/Vellum)
+![build](https://github.com/nayanda1/Vellum/workflows/build/badge.svg)
+![test](https://github.com/nayanda1/Vellum/workflows/test/badge.svg)
 [![Version](https://img.shields.io/cocoapods/v/Vellum.svg?style=flat)](https://cocoapods.org/pods/Vellum)
 [![License](https://img.shields.io/cocoapods/l/Vellum.svg?style=flat)](https://cocoapods.org/pods/Vellum)
 [![Platform](https://img.shields.io/cocoapods/p/Vellum.svg?style=flat)](https://cocoapods.org/pods/Vellum)
