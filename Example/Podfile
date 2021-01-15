@@ -1,0 +1,7 @@
+use_frameworks!
+target 'Vellum_Tests' do
+  pod 'Vellum', :path => '../'
+  
+  pod 'Quick', '~> 3.0.0'
+  pod 'Nimble', '~> 9.0.0'
+end

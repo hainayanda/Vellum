@@ -1,0 +1,6 @@
+framework module Vellum {
+  umbrella header "Vellum-umbrella.h"
+
+  export *
+  module * { export * }
+}

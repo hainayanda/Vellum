@@ -1,0 +1,6 @@
+framework module Pods_Vellum_Tests {
+  umbrella header "Pods-Vellum_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}
