@@ -220,3 +220,19 @@ let results = userCache.findWhere { archive in
 }
 .getResults()
 ```
+
+### Property Wrapper
+
+You could use `Archived` property wrapper to wrapped any property so if it assigned it will automatically store those property into `ArchiveManager`:
+
+```swift
+@Archived var user: User?
+```
+
+if you want the property have initial value based on the given primary key, just pass the key: 
+
+```swift
+@Archived(initialPrimaryKey: "some") var user: User?
+```
+
+Code above will try to get user with given key at first property load.
