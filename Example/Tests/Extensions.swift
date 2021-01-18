@@ -32,3 +32,60 @@ extension Array where Element == Structure {
     }
 }
 
+extension Array where Element == ObjectValidateable {
+    static func random(size: Int, commonPrefix: String = "", countOfCommonPrefix: Int = 0, haveSuffix: Bool = true, countOfNils: Int = 0) -> [Element] {
+        var array: [Element] = []
+        for index in 0..<size {
+            let string = index < countOfCommonPrefix ? "\(commonPrefix)\(haveSuffix ? String.randomString() : "")": String.randomString()
+            let nullableString = index < countOfNils ? nil : String.randomString()
+            array.append(.init(string: string, nullableString: nullableString, int: Int.random(in: -99..<100)))
+        }
+        return array.shuffled()
+    }
+    
+    static func random(size: Int, countOfEmpty: Int = 0, countOfNils: Int = 0) -> [Element] {
+        var array: [Element] = []
+        for index in 0..<size {
+            let string = index < countOfEmpty ? "": String.randomString()
+            let nullableString = index < countOfNils ? nil : String.randomString()
+            array.append(.init(string: string, nullableString: nullableString, int: Int.random(in: -99..<100)))
+        }
+        return array.shuffled()
+    }
+    
+    static func random(size: Int, biggerThan number: Int, countOfBigger: Int) -> [Element] {
+        var array: [Element] = []
+        for index in 0..<size {
+            let int = index < countOfBigger ? Int.random(in: number..<Int.max) : Int.random(in: Int.min..<number)
+            array.append(.init(string: .randomString(), nullableString: .randomString(), int: int))
+        }
+        return array.shuffled()
+    }
+    
+    static func random(size: Int, lessThan number: Int, countOfLesser: Int) -> [Element] {
+        var array: [Element] = []
+        for index in 0..<size {
+            let int = index < countOfLesser ? Int.random(in: Int.min..<number) : Int.random(in: number..<Int.max)
+            array.append(.init(string: .randomString(), nullableString: .randomString(), int: int))
+        }
+        return array.shuffled()
+    }
+    
+    static func random(size: Int, equal number: Int, countOfEqual: Int) -> [Element] {
+        var array: [Element] = []
+        for index in 0..<size {
+            let int = index < countOfEqual ? number : Int.random(in: number..<Int.max)
+            array.append(.init(string: .randomString(), nullableString: .randomString(), int: int))
+        }
+        return array.shuffled()
+    }
+    
+    static func random(size: Int, countOfNilOrEmpty: Int) -> [Element] {
+        var array: [Element] = []
+        for index in 0..<size {
+            let nullableString = index < countOfNilOrEmpty ? (Bool.random() ? nil : "") : .randomString()
+            array.append(.init(string: .randomString(), nullableString: nullableString, int: Int.random(in: -99..<100)))
+        }
+        return array.shuffled()
+    }
+}

@@ -155,15 +155,6 @@ public extension QueryValidator where Property: Collection, Property.Element: Eq
         }
     }
     
-    static func contains(atLeastOne members: Property.Element...) -> QueryValidator<Result, Property> {
-        .isValid {
-            for member in members where $0.firstIndex(of: member) != nil {
-                return true
-            }
-            return false
-        }
-    }
-    
     static func contains(all members: [Property.Element]) -> QueryValidator<Result, Property> {
         .isValid {
             for member in members where $0.firstIndex(of: member) == nil {
@@ -173,13 +164,8 @@ public extension QueryValidator where Property: Collection, Property.Element: Eq
         }
     }
     
-    static func contains(all members: Property.Element...) -> QueryValidator<Result, Property> {
-        .isValid {
-            for member in members where $0.firstIndex(of: member) == nil {
-                return false
-            }
-            return true
-        }
+    static func contains(_ members: Property.Element...) -> QueryValidator<Result, Property> {
+        return .contains(all: members)
     }
 }
 
