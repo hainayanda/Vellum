@@ -41,6 +41,18 @@ public class QueryValidator<Result, Property>: Query<Result> {
             }
         }
     }
+    
+    public static func isNil() -> QueryValidator<Result, Property> {
+        isValid { property in
+            (property as? OptionalValidatable)?.isNil ?? false
+        }
+    }
+    
+    public static func isNotNil() -> QueryValidator<Result, Property> {
+        isValid { property in
+            (property as? OptionalValidatable)?.isNotNil ?? true
+        }
+    }
 }
 
 public extension QueryValidator where Property: Equatable {
@@ -113,6 +125,18 @@ public extension QueryValidator where Property: Collection {
             $0.count <= count
         }
     }
+    
+    static func isEmpty() -> QueryValidator<Result, Property> {
+        .isValid {
+            $0.isEmpty
+        }
+    }
+    
+    static func isNotEmpty() -> QueryValidator<Result, Property> {
+        .isValid {
+            !$0.isEmpty
+        }
+    }
 }
 
 public extension QueryValidator where Property: Collection, Property.Element: Equatable {
@@ -131,15 +155,6 @@ public extension QueryValidator where Property: Collection, Property.Element: Eq
         }
     }
     
-    static func contains(atLeastOne members: Property.Element...) -> QueryValidator<Result, Property> {
-        .isValid {
-            for member in members where $0.firstIndex(of: member) != nil {
-                return true
-            }
-            return false
-        }
-    }
-    
     static func contains(all members: [Property.Element]) -> QueryValidator<Result, Property> {
         .isValid {
             for member in members where $0.firstIndex(of: member) == nil {
@@ -149,13 +164,8 @@ public extension QueryValidator where Property: Collection, Property.Element: Eq
         }
     }
     
-    static func contains(all members: Property.Element...) -> QueryValidator<Result, Property> {
-        .isValid {
-            for member in members where $0.firstIndex(of: member) == nil {
-                return false
-            }
-            return true
-        }
+    static func contains(_ members: Property.Element...) -> QueryValidator<Result, Property> {
+        return .contains(all: members)
     }
 }
 
@@ -172,6 +182,14 @@ public extension QueryValidator where Property == String {
     static func matches(regex: String) -> QueryValidator<Result, Property> {
         .isValid {
             $0.range(of: regex, options: .regularExpression, range: nil, locale: nil) != nil
+        }
+    }
+}
+
+public extension QueryValidator where Property == String? {
+    static func isNilOrEmpty() -> QueryValidator<Result, Property> {
+        .isValid {
+            $0?.isEmpty ?? true
         }
     }
 }

@@ -16,8 +16,8 @@ class IntegratedSpec: QuickSpec {
         var archives: ArchiveManager<Structure>!
         var innerArchives: ArchiveManager<InnerStructure>!
         beforeEach {
-            archives = try! ArchivesFactory.shared.archives(trySetMaxMemorySize: 10.kiloByte, trySetMaxDiskSize: 20.kiloByte)
-            innerArchives = try! ArchivesFactory.shared.archives(trySetMaxMemorySize: 10.kiloByte, trySetMaxDiskSize: 20.kiloByte)
+            archives = try! ArchivesFactory.shared.archives(trySetMaxMemorySize: 10.kiloBytes, trySetMaxDiskSize: 20.kiloBytes)
+            innerArchives = try! ArchivesFactory.shared.archives(trySetMaxMemorySize: 10.kiloBytes, trySetMaxDiskSize: 20.kiloBytes)
         }
         afterEach {
             archives.deleteAll()

@@ -23,19 +23,53 @@ extension String {
 }
 
 public extension Int {
-    var bit: Int { self / 8 }
-    var nibble: Int { self / 2 }
-    var byte: Int { self }
-    var kiloByte: Int { self * 1024 }
-    var megaByte: Int { kiloByte * 1024 }
-    var gigaByte: Int { megaByte * 1024 }
+    var bits: DataSize { .bits(self) }
+    var nibbles: DataSize { .nibbles(self) }
+    var bytes: DataSize { .bytes(self) }
+    var kiloBytes: DataSize { .kiloBytes(self) }
+    var megaBytes: DataSize { .megaBytes(self) }
+    var gigaBytes: DataSize { .gigaBytes(self) }
 }
 
 public extension Double {
-    var bit: Int { Int(self).bit }
-    var nibble: Int { Int(self).nibble }
-    var byte: Int { Int(self).byte }
-    var kiloByte: Int { Int(self).kiloByte }
-    var megaByte: Int { Int(self).megaByte }
-    var gigaByte: Int { Int(self).gigaByte }
+    var bits: DataSize { .bits(self) }
+    var nibbles: DataSize { .nibbles(self) }
+    var bytes: DataSize { .bytes(self) }
+    var kiloBytes: DataSize { .kiloBytes(self) }
+    var megaBytes: DataSize { .megaBytes(self) }
+    var gigaBytes: DataSize { .gigaBytes(self) }
+}
+
+protocol OptionalValidatable {
+    var isNil: Bool { get }
+    var isNotNil: Bool { get }
+}
+
+extension Optional: OptionalValidatable {
+    var isNil: Bool {
+        switch self {
+        case .some(_):
+            return false
+        default:
+            return true
+        }
+    }
+    
+    var isNotNil: Bool {
+        return !isNil
+    }
+}
+
+public func max<Some: Comparable>(_ left: Some, _ right: Some) -> Some {
+    if left < right {
+        return right
+    }
+    return left
+}
+
+public func min<Some: Comparable>(_ left: Some, _ right: Some) -> Some {
+    if left > right {
+        return right
+    }
+    return left
 }

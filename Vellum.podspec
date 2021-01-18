@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Vellum'
-  s.version          = '1.0.0'
+  s.version          = '1.1.0'
   s.summary          = 'Vellum is local persistent data storage for iOS'
 
 # This description is used to generate tags and improve search results.

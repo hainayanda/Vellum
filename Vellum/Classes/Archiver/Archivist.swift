@@ -9,8 +9,8 @@ import Foundation
 
 public protocol Archivist {
     associatedtype Archive: Archivable
-    var maxSize: Int { get }
-    var currentSize: Int { get }
+    var maxSize: DataSize { get }
+    var currentSize: DataSize { get }
     func latestAccessedTime(for key: String) -> Date?
     func deleteAllInvalidateArchives(invalidateTimeInterval: TimeInterval)
     func record(_ object: Archive)
@@ -32,11 +32,6 @@ extension Archivist {
     public func sorted(_ sorter: (QuerySorter<Archive>) -> QuerySorter<Archive>) -> QueryBuilder<Self> {
         let queryBuilder = QueryBuilder(archiver: self)
         return queryBuilder.sorted(sorter)
-    }
-    
-    public func limitResults(by count: Int) -> QueryBuilder<Self> {
-        let queryBuilder = QueryBuilder(archiver: self)
-        return queryBuilder.limitResults(by: count)
     }
 }
 
@@ -78,6 +73,7 @@ public extension Archivist {
     func delete(keys: String...) {
         delete(allKeys: keys)
     }
+    
     func delete(allKeys objectsKeys: [String]) {
         objectsKeys.forEach {
             delete(archiveWithKey: $0)

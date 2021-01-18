@@ -9,7 +9,7 @@ import Foundation
 
 @propertyWrapper
 public class Archived<Archive: Archivable> {
-    public var wrappedValue: Archive? {
+    public lazy var wrappedValue: Archive? = tryGetByInitialPrimaryKey() {
         didSet {
             guard let archivist = self.archivist else { return }
             if let archive = wrappedValue {
@@ -19,6 +19,8 @@ public class Archived<Archive: Archivable> {
             }
         }
     }
+    
+    private var initialPrimaryKey: String?
     
     private var archivist: ArchiveManager<Archive>? {
         return try? ArchivesFactory.shared.archives()
@@ -31,8 +33,13 @@ public class Archived<Archive: Archivable> {
     }
     
     public init(initialPrimaryKey key: String) {
-        guard let archivist = self.archivist else { return }
-        wrappedValue = archivist.access(archiveWithKey: key)
+        self.initialPrimaryKey = key
+    }
+    
+    private func tryGetByInitialPrimaryKey() -> Archive? {
+        guard let archivist = self.archivist,
+              let initialPrimaryKey = initialPrimaryKey else { return nil }
+        return archivist.access(archiveWithKey: initialPrimaryKey)
     }
     
 }

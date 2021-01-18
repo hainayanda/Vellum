@@ -9,12 +9,12 @@ import Foundation
 
 public class ArchiveManager<Archive: Archivable>: Archivist {
     
-    public var maxSize: Int { memoryArchives.maxSize + diskArchives.maxSize }
-    public var currentSize: Int { memoryArchives.currentSize + diskArchives.currentSize }
+    public var maxSize: DataSize { memoryArchives.maxSize + diskArchives.maxSize }
+    public var currentSize: DataSize { memoryArchives.currentSize + diskArchives.currentSize }
     var memoryArchives: MemoryArchives<Archive>
     var diskArchives: DiskArchives<Archive>
     
-    public init(maxMemorySize: Int, maxDiskSize: Int) throws {
+    public init(maxMemorySize: DataSize, maxDiskSize: DataSize) throws {
         memoryArchives = .init(maxSize: maxMemorySize)
         diskArchives = try .init(maxSize: maxDiskSize)
     }

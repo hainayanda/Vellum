@@ -13,7 +13,7 @@ public protocol Archivable {
     static var archiveName: String { get }
     static var archivePropertyBehavior: ArchivePropertyBehavior { get }
     var primaryKey: String { get }
-    var sizeOfData: Int { get }
+    var sizeOfData: DataSize { get }
     func archiveData() throws -> Data
     static func decode(archive data: Data) throws -> Archivable
 }
@@ -34,9 +34,9 @@ public extension Archivable {
         .insertIfNotPresent
     }
     
-    var sizeOfData: Int {
+    var sizeOfData: DataSize {
         let data = try? archiveData()
-        return data?.count ?? 0
+        return .init(bytes: data?.count ?? 0)
     }
     
     func updateArchive() {
@@ -75,6 +75,12 @@ public extension Archivable {
     }
     
     func tryCopy() -> Self {
+        guard type(of: self) is AnyClass else {
+            return self
+        }
+        if let nsCopying = self as? NSCopying, let copy = nsCopying.copy(with: nil) as? Self {
+            return copy
+        }
         do {
             let data = try archiveData()
             return (try Self.decode(archive: data) as? Self) ?? self

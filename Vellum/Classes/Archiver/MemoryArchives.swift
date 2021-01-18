@@ -9,12 +9,12 @@ import Foundation
 
 class MemoryArchives<Archive: Archivable>: Archivist {
     
-    var maxSize: Int
-    var currentSize: Int = 0
+    var maxSize: DataSize
+    var currentSize: DataSize = .zero
     
     lazy var memoryCache: [String: DateStampedWrapper<Archive>] = [:]
     
-    init(maxSize: Int) {
+    init(maxSize: DataSize) {
         self.maxSize = maxSize
     }
     
@@ -84,7 +84,7 @@ class MemoryArchives<Archive: Archivable>: Archivist {
         }
     }
     
-    func deleteArchivesIfNecessary(toAdd objectSize: Int = 0) {
+    func deleteArchivesIfNecessary(toAdd objectSize: DataSize = .zero) {
         guard objectSize + currentSize > maxSize else { return }
         let allObjects = memoryCache.values.sorted { $0.dateStamp.compare($1.dateStamp) == .orderedAscending }
             .compactMap { $0.wrapped }
