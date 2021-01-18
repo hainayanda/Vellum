@@ -33,11 +33,6 @@ extension Archivist {
         let queryBuilder = QueryBuilder(archiver: self)
         return queryBuilder.sorted(sorter)
     }
-    
-    public func limitResults(by count: Int) -> QueryBuilder<Self> {
-        let queryBuilder = QueryBuilder(archiver: self)
-        return queryBuilder.limitResults(by: count)
-    }
 }
 
 public extension Archivist {
@@ -78,6 +73,7 @@ public extension Archivist {
     func delete(keys: String...) {
         delete(allKeys: keys)
     }
+    
     func delete(allKeys objectsKeys: [String]) {
         objectsKeys.forEach {
             delete(archiveWithKey: $0)
