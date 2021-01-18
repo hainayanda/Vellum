@@ -75,6 +75,12 @@ public extension Archivable {
     }
     
     func tryCopy() -> Self {
+        guard type(of: self) is AnyClass else {
+            return self
+        }
+        if let nsCopying = self as? NSCopying, let copy = nsCopying.copy(with: nil) as? Self {
+            return copy
+        }
         do {
             let data = try archiveData()
             return (try Self.decode(archive: data) as? Self) ?? self
