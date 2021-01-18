@@ -9,19 +9,19 @@ import Foundation
 
 public class ArchivesFactory {
     public static var shared: ArchivesFactory = .init()
-    public var defaultMaxMemorySize: Int = 1.megaByte
-    public var defaultMaxDiskSize: Int = 2.megaByte
+    public var defaultMaxMemorySize: DataSize = 1.megaBytes
+    public var defaultMaxDiskSize: DataSize = 2.megaBytes
     var archiveManager: [Any] = []
     var repositoryManager: [Any] = []
     
     public func archives<Archive: Archivable>(
         for type: Archive.Type,
-        trySetMaxMemorySize memorySize: Int = 0,
-        trySetMaxDiskSize diskSize: Int = 0) throws -> ArchiveManager<Archive> {
+        trySetMaxMemorySize memorySize: DataSize = .zero,
+        trySetMaxDiskSize diskSize: DataSize = .zero) throws -> ArchiveManager<Archive> {
         guard let found = archiveManager.first(where:{ $0 as? ArchiveManager<Archive> != nil }),
               let archivist = found as? ArchiveManager<Archive> else {
-            let memorySize = memorySize <= 0 ? defaultMaxMemorySize : memorySize
-            let diskSize = diskSize <= 0 ? defaultMaxDiskSize : diskSize
+            let memorySize = memorySize.bytes <= 0 ? defaultMaxMemorySize : memorySize
+            let diskSize = diskSize.bytes <= 0 ? defaultMaxDiskSize : diskSize
             let archivist = try ArchiveManager<Archive>(maxMemorySize: memorySize, maxDiskSize: diskSize)
             archiveManager.append(archivist)
             return archivist
@@ -30,8 +30,8 @@ public class ArchivesFactory {
     }
     
     public func archives<Archive: Archivable>(
-        trySetMaxMemorySize memorySize: Int = 0,
-        trySetMaxDiskSize diskSize: Int = 0) throws -> ArchiveManager<Archive> {
+        trySetMaxMemorySize memorySize: DataSize = .zero,
+        trySetMaxDiskSize diskSize: DataSize = .zero) throws -> ArchiveManager<Archive> {
         return try archives(for: Archive.self, trySetMaxMemorySize: memorySize, trySetMaxDiskSize: diskSize)
     }
     

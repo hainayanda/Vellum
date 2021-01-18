@@ -9,9 +9,9 @@ import Foundation
 
 class DiskArchives<Archive: Archivable>: Archivist {
     
-    var maxSize: Int
-    private var _currentSize: Int = 0
-    var currentSize: Int {
+    var maxSize: DataSize
+    private var _currentSize: DataSize = .zero
+    var currentSize: DataSize {
         get {
             return _currentSize
         }
@@ -24,7 +24,7 @@ class DiskArchives<Archive: Archivable>: Archivist {
     let fileExtension: String = "vlm"
     var index: [DateStampedWrapper<String>] = []
     
-    init(maxSize: Int) throws {
+    init(maxSize: DataSize) throws {
         self.maxSize = maxSize
         // will throw error if fail
         guard let path = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first as NSString? else {
@@ -114,7 +114,7 @@ class DiskArchives<Archive: Archivable>: Archivist {
             return
         }
         doTry {
-            let size = try readFile(named: key).count
+            let size = try readFile(named: key).dataSize
             try deleteFile(named: key)
             index.removeAll { $0.wrapped == key }
             currentSize -= size
@@ -139,7 +139,7 @@ class DiskArchives<Archive: Archivable>: Archivist {
         currentSize = 0
     }
     
-    func deleteArchivesIfNecessary(toAdd objectSize: Int = 0) {
+    func deleteArchivesIfNecessary(toAdd objectSize: DataSize = 0) {
         guard objectSize + currentSize > maxSize else { return }
         let indexes = self.index.sorted { $0.dateStamp.compare($1.dateStamp) == .orderedAscending }
             .compactMap { $0.wrapped }
@@ -210,9 +210,9 @@ extension DiskArchives {
         return try Data(contentsOf: url)
     }
     
-    func getFileSize(named fileName: String) -> Int {
+    func getFileSize(named fileName: String) -> DataSize {
         let attributes = try? fileManager.attributesOfItem(atPath: filePath(ofFileName: fileName))
-        return (attributes?[.size] as? NSNumber)?.intValue ?? 0
+        return DataSize(bytes: (attributes?[.size] as? NSNumber)?.intValue ?? 0)
     }
     
     func getFileLatestUpdate(named fileName: String) -> Date {
@@ -222,7 +222,7 @@ extension DiskArchives {
         return max(creationDate, modifyDate)
     }
     
-    func getAllSize(forFiles fileNames: [String]) -> Int {
+    func getAllSize(forFiles fileNames: [String]) -> DataSize {
         fileNames.reduce(0) { currentSize, fileName in
             getFileSize(named: fileName) + currentSize
         }

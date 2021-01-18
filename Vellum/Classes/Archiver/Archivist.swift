@@ -9,8 +9,8 @@ import Foundation
 
 public protocol Archivist {
     associatedtype Archive: Archivable
-    var maxSize: Int { get }
-    var currentSize: Int { get }
+    var maxSize: DataSize { get }
+    var currentSize: DataSize { get }
     func latestAccessedTime(for key: String) -> Date?
     func deleteAllInvalidateArchives(invalidateTimeInterval: TimeInterval)
     func record(_ object: Archive)
