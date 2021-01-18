@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		90B1795D963D140A43B6BE8F /* Pods_Vellum_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2C799248E056CE0EA3A7280 /* Pods_Vellum_Tests.framework */; };
+		BB1BBC1425B5663600D2B553 /* DataSizeSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1BBC1325B5663600D2B553 /* DataSizeSpec.swift */; };
 		BBB909E225AF9D8C007CB162 /* IntegratedSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB909E125AF9D8C007CB162 /* IntegratedSpec.swift */; };
 		BBB909E525AF9DF0007CB162 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB909E425AF9DF0007CB162 /* Extensions.swift */; };
 /* End PBXBuildFile section */
@@ -17,6 +18,7 @@
 		607FACE51AFB9204008FA782 /* Vellum_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Vellum_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		88C1C22E5A986C2F43F6AF87 /* Pods-Vellum_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vellum_Tests.debug.xcconfig"; path = "Target Support Files/Pods-Vellum_Tests/Pods-Vellum_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		BB1BBC1325B5663600D2B553 /* DataSizeSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSizeSpec.swift; sourceTree = "<group>"; };
 		BBB909E125AF9D8C007CB162 /* IntegratedSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegratedSpec.swift; sourceTree = "<group>"; };
 		BBB909E425AF9DF0007CB162 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		D3688AED568E1F4CA6DCBB13 /* Vellum.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Vellum.podspec; path = ../Vellum.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -70,6 +72,7 @@
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 				BBB909E125AF9D8C007CB162 /* IntegratedSpec.swift */,
 				BBB909E425AF9DF0007CB162 /* Extensions.swift */,
+				BB1BBC1325B5663600D2B553 /* DataSizeSpec.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -220,6 +223,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB1BBC1425B5663600D2B553 /* DataSizeSpec.swift in Sources */,
 				BBB909E525AF9DF0007CB162 /* Extensions.swift in Sources */,
 				BBB909E225AF9D8C007CB162 /* IntegratedSpec.swift in Sources */,
 			);

@@ -24,7 +24,7 @@ extension String {
 
 public extension Int {
     var bits: DataSize { .bits(self) }
-    var nibbles: DataSize { .nibles(self) }
+    var nibbles: DataSize { .nibbles(self) }
     var bytes: DataSize { .bytes(self) }
     var kiloBytes: DataSize { .kiloBytes(self) }
     var megaBytes: DataSize { .megaBytes(self) }
@@ -33,7 +33,7 @@ public extension Int {
 
 public extension Double {
     var bits: DataSize { .bits(self) }
-    var nibbles: DataSize { .nibles(self) }
+    var nibbles: DataSize { .nibbles(self) }
     var bytes: DataSize { .bytes(self) }
     var kiloBytes: DataSize { .kiloBytes(self) }
     var megaBytes: DataSize { .megaBytes(self) }

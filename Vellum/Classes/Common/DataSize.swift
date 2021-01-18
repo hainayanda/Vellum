@@ -43,12 +43,12 @@ public struct DataSize: Equatable, Comparable {
         return .init(bytes: Int(bytes) + 1)
     }
     
-    public static func nibles(_ count: Int) -> DataSize {
+    public static func nibbles(_ count: Int) -> DataSize {
         let numberOfBits = count * 4
         return .bits(numberOfBits)
     }
     
-    public static func nibles(_ count: Double) -> DataSize {
+    public static func nibbles(_ count: Double) -> DataSize {
         let numberOfBits = count * 4
         return .bits(numberOfBits)
     }
