@@ -36,6 +36,9 @@ Vellum is available under the MIT license. See the LICENSE file for more info.
 Vellum is using LRU Algorithm. It contains 2 type of storage which is `Memory Storage` and `Disk Storage`. Both size can be assigned manually.
 
 ### Store Data
+
+![alt text](https://github.com/nayanda1/Vellum/blob/main/Storing_Algorithm.png)
+
 1. Store data to Memory Storage
 2. If Memory Storage is is full, it will remove the most oldest accessed data from memory until the space is enough for new data
 3. Data stored to the memory
@@ -44,6 +47,9 @@ Vellum is using LRU Algorithm. It contains 2 type of storage which is `Memory St
 6. Data stored to the disk
 
 ### Getting Data
+
+![alt text](https://github.com/nayanda1/Vellum/blob/main/Accessing_Algorithm.png)
+
 1. Find data from the Memory Storage
 2. If the data is exist, it will return the data and the step ended
 3. If the data is not exist in the memory, it will try  to find data from Disk Storage
