@@ -1,3 +1,7 @@
+<p align="center">
+  <img width="192" height="166" src="Vellum.png"/>
+</p>
+
 # Vellum
 
 ![build](https://github.com/nayanda1/Vellum/workflows/build/badge.svg)
