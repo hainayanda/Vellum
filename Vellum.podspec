@@ -28,9 +28,9 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/nayanda1/Vellum.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '9.3'
+  s.ios.deployment_target = '10.0'
 
-  s.source_files = 'Vellum/Classes/**/*'
+  s.source_files = 'Sources/Vellum/Classes/**/*'
   
   # s.resource_bundles = {
   #   'Vellum' => ['Vellum/Assets/*.png']
@@ -39,5 +39,5 @@ Pod::Spec.new do |s|
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   # s.dependency 'AFNetworking', '~> 2.3'
-  s.swift_version = '5.0'
+  s.swift_version = '5.1'
 end
