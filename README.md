@@ -34,7 +34,7 @@ Nayanda Haberty, nayanda1@outlook.com
 
 ## License
 
-Vellum is available under the MIT license. See the LICENSE file for more info.
+Vellum is available under the MIT license. See the [LICENSE](LICENSE) file for more info.
 
 ## Storage Algorithm
 Vellum is using LRU Algorithm. It contains 2 type of storage which is `Memory Storage` and `Disk Storage`. Both size can be assigned manually.
