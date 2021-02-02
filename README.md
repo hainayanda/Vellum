@@ -10,10 +10,6 @@
 [![License](https://img.shields.io/cocoapods/l/Vellum.svg?style=flat)](https://cocoapods.org/pods/Vellum)
 [![Platform](https://img.shields.io/cocoapods/p/Vellum.svg?style=flat)](https://cocoapods.org/pods/Vellum)
 
-## Example
-
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
-
 ## Requirements
 
 - Swift 5.0 or higher
