@@ -17,12 +17,26 @@
 
 ## Installation
 
+### Cocoapods
+
 Vellum is available through [CocoaPods](https://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
 pod 'Vellum'
 ```
+
+### Swift Package Manager
+
+First, create a Package.swift file and add this github url. It should look like:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/nayanda1/Vellum.git", from: "1.2.0")
+]
+```
+
+Then run swift build to build the dependency before you use it
 
 ## Author
 
