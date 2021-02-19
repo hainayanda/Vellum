@@ -30,7 +30,7 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '10.0'
 
-  s.source_files = 'Sources/Vellum/Classes/**/*'
+  s.source_files = 'Vellum/Classes/**/*'
   
   # s.resource_bundles = {
   #   'Vellum' => ['Vellum/Assets/*.png']
