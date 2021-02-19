@@ -1,7 +1,7 @@
 PODS:
   - Nimble (9.0.0)
   - Quick (3.0.0)
-  - Vellum (1.1.0)
+  - Vellum (1.2.0)
 
 DEPENDENCIES:
   - Nimble (~> 9.0.0)
@@ -20,7 +20,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Nimble: 3b4ec3fd40f1dc178058e0981107721c615643d8
   Quick: 6d9559f40647bc4d510103842ef2fdd882d753e2
-  Vellum: 0d21e79bafd9d2d7049afe0047e97cbcb9913e5a
+  Vellum: 8470685b32505ba1328ae5ffd58f29756d93459f
 
 PODFILE CHECKSUM: ce5e940018d85ebb5b25f3503c3de7009a1513f1
 
