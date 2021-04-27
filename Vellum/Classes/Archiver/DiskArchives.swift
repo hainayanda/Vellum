@@ -27,14 +27,25 @@ class DiskArchives<Archive: Archivable>: Archivist {
     init(maxSize: DataSize) throws {
         self.maxSize = maxSize
         // will throw error if fail
-        guard let path = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first as NSString? else {
-            throw VellumError(errorDescription: "VellumError: fail creating DiskArchiver", failureReason: "Fail to get chaches directory")
+        guard let path = NSSearchPathForDirectoriesInDomains(
+                .cachesDirectory,
+                .userDomainMask, true
+        ).first as NSString? else {
+            throw VellumError(
+                errorDescription: "VellumError: fail creating DiskArchiver",
+                failureReason: "Fail to get chaches directory"
+            )
         }
         self.diskPath = path.appendingPathComponent(Archive.archiveName)
         if isExist(forDirectoryPath: diskPath) {
             let fileNames = try getAllArchived(at: diskPath)
             currentSize = getAllSize(forFiles: fileNames)
-            index = fileNames.compactMap { DateStampedWrapper(wrapped: $0, dateStamp: getFileLatestUpdate(named: $0)) }
+            index = fileNames.compactMap {
+                DateStampedWrapper(
+                    wrapped: $0,
+                    dateStamp: getFileLatestUpdate(named: $0)
+                )
+            }
         } else {
             try createDirectory(at: diskPath)
             index = []
@@ -84,11 +95,11 @@ class DiskArchives<Archive: Archivable>: Archivist {
         accessAll(limitedBy: limit, updateIndex: true)
     }
     
-    func accessAll() -> [Archive]  {
+    func accessAll() -> [Archive] {
         accessAll(updateIndex: true)
     }
     
-    func accessAll(limitedBy limit: Int? = nil, updateIndex: Bool, except: [String] = []) -> [Archive]  {
+    func accessAll(limitedBy limit: Int? = nil, updateIndex: Bool, except: [String] = []) -> [Archive] {
         var filteredIndex = index.filter { !except.contains($0.wrapped) }
         if let limit = limit, filteredIndex.count < limit {
             filteredIndex = Array(filteredIndex.prefix(limit))
@@ -98,7 +109,7 @@ class DiskArchives<Archive: Archivable>: Archivist {
         }
     }
     
-    func process(queries: [Query<Archive>]) -> [Archive]  {
+    func process(queries: [Query<Archive>]) -> [Archive] {
         var results = accessAll(updateIndex: false)
         for query in queries {
             results = query.process(results: results)
@@ -170,67 +181,80 @@ class DiskArchives<Archive: Archivable>: Archivist {
 }
 
 extension DiskArchives {
-    func isExist(forDirectoryPath path: String) -> Bool{
+    private func isExist(forDirectoryPath path: String) -> Bool {
         var isDirectory : ObjCBool = false
         let isExist = fileManager.fileExists(atPath: path, isDirectory: &isDirectory)
         return isDirectory.boolValue && isExist
     }
     
-    func isExist(forFileNamed fileName: String) -> Bool {
+    private func isExist(forFileNamed fileName: String) -> Bool {
         var isDirectory : ObjCBool = false
-        let isExist = fileManager.fileExists(atPath: filePath(ofFileName: fileName), isDirectory: &isDirectory)
+        let isExist = fileManager.fileExists(
+            atPath: filePath(ofFileName: fileName),
+            isDirectory: &isDirectory
+        )
         return !isDirectory.boolValue && isExist
     }
     
-    func createDirectory(at path: String) throws {
+    private func createDirectory(at path: String) throws {
         let url = URL(fileURLWithPath: path)
         try fileManager.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
     }
     
-    func createFile(named fileName: String, contents: Data) {
-        fileManager.createFile(atPath: filePath(ofFileName: fileName), contents: contents, attributes: [.creationDate: Date() as NSDate])
+    private func createFile(named fileName: String, contents: Data) {
+        fileManager.createFile(
+            atPath: filePath(ofFileName: fileName),
+            contents: contents,
+            attributes: [.creationDate: Date() as NSDate]
+        )
     }
     
-    func updateDate(forFileName fileName: String) throws {
-        try fileManager.setAttributes([.modificationDate: Date() as NSDate], ofItemAtPath: filePath(ofFileName: fileName))
+    private func updateDate(forFileName fileName: String) throws {
+        try fileManager.setAttributes(
+            [.modificationDate: Date() as NSDate],
+            ofItemAtPath: filePath(ofFileName: fileName)
+        )
     }
     
-    func deleteFile(named fileName: String) throws {
+    private func deleteFile(named fileName: String) throws {
         try fileManager.removeItem(atPath: filePath(ofFileName: fileName))
     }
     
-    func deleteAll(files fileNames: [String]) throws {
+    private func deleteAll(files fileNames: [String]) throws {
         for fileName in fileNames {
             try deleteFile(named: fileName)
         }
     }
     
-    func readFile(named fileName: String) throws -> Data {
+    private func readFile(named fileName: String) throws -> Data {
         let url = URL(fileURLWithPath: filePath(ofFileName: fileName))
         return try Data(contentsOf: url)
     }
     
-    func getFileSize(named fileName: String) -> DataSize {
+    private func getFileSize(named fileName: String) -> DataSize {
         let attributes = try? fileManager.attributesOfItem(atPath: filePath(ofFileName: fileName))
         return DataSize(bytes: (attributes?[.size] as? NSNumber)?.intValue ?? 0)
     }
     
-    func getFileLatestUpdate(named fileName: String) -> Date {
+    private func getFileLatestUpdate(named fileName: String) -> Date {
         let attributes = try? fileManager.attributesOfItem(atPath: filePath(ofFileName: fileName))
         let creationDate = (attributes?[.creationDate] as? NSDate) as Date? ?? .distantPast
         let modifyDate = (attributes?[.modificationDate] as? NSDate) as Date? ?? .distantPast
         return max(creationDate, modifyDate)
     }
     
-    func getAllSize(forFiles fileNames: [String]) -> DataSize {
+    private func getAllSize(forFiles fileNames: [String]) -> DataSize {
         fileNames.reduce(0) { currentSize, fileName in
             getFileSize(named: fileName) + currentSize
         }
     }
     
-    func getAllArchived(at path: String) throws -> [String] {
+    private func getAllArchived(at path: String) throws -> [String] {
         let url = URL(fileURLWithPath: path)
-        let contents = try fileManager.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: .skipsSubdirectoryDescendants)
+        let contents = try fileManager.contentsOfDirectory(
+            at: url, includingPropertiesForKeys: nil,
+            options: .skipsSubdirectoryDescendants
+        )
         return contents.filter {
             $0.pathExtension == fileExtension
         }.compactMap {
@@ -238,7 +262,7 @@ extension DiskArchives {
         }
     }
     
-    func filePath(ofFileName fileName: String) -> String {
+    private func filePath(ofFileName fileName: String) -> String {
         (diskPath as NSString).appendingPathComponent("\(fileName).\(fileExtension)")
     }
 }
