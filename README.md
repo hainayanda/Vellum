@@ -7,6 +7,7 @@
 [![codebeat badge](https://codebeat.co/badges/acb3125f-c1dc-4931-8c61-11780703e29a)](https://codebeat.co/projects/github-com-nayanda1-vellum-main)
 ![build](https://github.com/nayanda1/Vellum/workflows/build/badge.svg)
 ![test](https://github.com/nayanda1/Vellum/workflows/test/badge.svg)
+[![SwiftPM Compatible](https://img.shields.io/badge/SwiftPM-Compatible-brightgreen)](https://swift.org/package-manager/)
 [![Version](https://img.shields.io/cocoapods/v/Vellum.svg?style=flat)](https://cocoapods.org/pods/Vellum)
 [![License](https://img.shields.io/cocoapods/l/Vellum.svg?style=flat)](https://cocoapods.org/pods/Vellum)
 [![Platform](https://img.shields.io/cocoapods/p/Vellum.svg?style=flat)](https://cocoapods.org/pods/Vellum)
