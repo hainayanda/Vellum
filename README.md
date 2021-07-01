@@ -30,8 +30,8 @@ pod 'Vellum'
 
 ### Swift Package Manager from XCode
 
-- Add it using xcode menu **File > Swift Package > Add Package Dependency**
-- Add **https://github.com/nayanda1/Vellum.git** as Swift Package url
+- Add it using XCode menu **File > Swift Package > Add Package Dependency**
+- Add **https://github.com/nayanda1/Vellum.git** as Swift Package URL
 - Set rules at **version**, with **Up to Next Major** option and put **1.2.2** as its version
 - Click next and wait
 
@@ -65,17 +65,17 @@ Nayanda Haberty, nayanda1@outlook.com
 Vellum is available under the MIT license. See the [LICENSE](LICENSE) file for more info.
 
 ## Storage Algorithm
-Vellum is using LRU Algorithm. It contains 2 type of storage which is `Memory Storage` and `Disk Storage`. Both size can be assigned manually.
+Vellum is using LRU Algorithm. It contains 2 type of storage which is `Memory Storage` and `Disk Storage`. Both sizes can be assigned manually.
 
 ### Store Data
 
 ![alt text](https://github.com/nayanda1/Vellum/blob/main/Storing_Algorithm.png)
 
 1. Store data to Memory Storage
-2. If Memory Storage is is full, it will remove the most oldest accessed data from memory until the space is enough for new data
-3. Data stored to the memory
+2. If Memory Storage is full, it will remove the oldest accessed data from memory until space is enough for new data
+3. Data stored in the memory
 4. Store data to Disk Storage
-5. If Disk Storage is is full, it will remove the most oldest accessed data from memory until the space is enough for new data
+5. If Disk Storage is full, it will remove the oldest accessed data from memory until space is enough for new data
 6. Data stored to the disk
 
 ### Getting Data
@@ -83,10 +83,10 @@ Vellum is using LRU Algorithm. It contains 2 type of storage which is `Memory St
 ![alt text](https://github.com/nayanda1/Vellum/blob/main/Accessing_Algorithm.png)
 
 1. Find data from the Memory Storage
-2. If the data is exist, it will return the data and the step ended
-3. If the data is not exist in the memory, it will try  to find data from Disk Storage
-4. If the data is exist, it will store the data to the Memory Storage for future faster use and return the data and the step ended
-5. If the data is not exist, it will return nil
+2. If the data exist, it will return the data and the step ended
+3. If the data do not exist in the memory, it will try  to find data from Disk Storage
+4. If the data exist, it will store the data to the Memory Storage for future faster use and return the data and the step ended
+5. If the data do not exist, it will return nil
 
 ## Usage Example
 
@@ -109,7 +109,7 @@ let object = archives.access(archiveWithKey: "object_key")
 
 ### Archivable
 
-`Archivable` actually is just a protocol which have methods to convert object to data or vice versa. `Archivable` make sure the object have keys too:
+`Archivable` actually is just a protocol that has methods to convert an object to data or vice versa. `Archivable` make sure the object has keys too:
 
 ```swift
 class User: Archivable {
@@ -130,7 +130,7 @@ class User: Archivable {
 ```
 ### ArchiveCodable
 
-If your object are `Codable`, just add `Archivable` or or using `typealias` `ArchiveCodable` which is the same, your object will have those methods automatically. You just need to add `primaryKey` property you want as primary key as long as the value is `String`:
+If your object is `Codable`, just add `Archivable` or using `typealias` `ArchiveCodable` which is the same, your object will have those methods automatically. You just need to add `primaryKey` property you want as the primary key as long as the value is `String`:
 
 ```swift
 struct User: Codable, Archivable {
@@ -143,7 +143,7 @@ struct User: Codable, Archivable {
 
 ### ArchiveManager
 
-To get `ArchiveManager`, you can use `ArchivesFactory`. You can assign the maximum size in byte for memory size and disk size. But keep in mind, the size will only applicable on the first creation of the `ArchiveManager`, If the cache manager already created, then the memory size and disk size is ignored. If you don't assign the memory size or disk size, it will use the default value which are 1 mega byte for memory and 2 mega byte disk size:
+To get `ArchiveManager`, you can use `ArchivesFactory`. You can assign the maximum size in bytes for memory size and disk size. But keep in mind, the size will only apply on the first creation of the `ArchiveManager`, If the cache manager is already created, then the memory size and disk size is ignored. If you don't assign the memory size or disk size, it will use the default value which is 1 megabyte for memory and 2 megabyte disk size:
 
 ```swift
 let archives = try! ArchivesFactory.shared.archives(
@@ -175,7 +175,7 @@ the `ArchiveManager` have some usable methods and property which are:
 
 ### Query
 
-You can do a query from cache. there are 3 types of query which are:
+You can do a query from the cache. there are 3 types of query which are:
 - `QueryFinder` to find the object/results by its properties
 - `QuerySorter` to sort the results by its properties
 - `QueryLimiter` to limit the results by limit
@@ -190,7 +190,7 @@ let results = userCache.findWhere { archive in
 .getResults()
 ```
 
-The code above will find all user in cache which its userName contains "premium" and its fullName is not nill. The results is array of User
+The code above will find all users in the cache whose userName contains "premium" and its fullName is not nill. The result is an array of User
 
 ```swift
 let results = userCache.sorted { by in 
@@ -200,7 +200,7 @@ let results = userCache.sorted { by in
 .getResults()
 ```
 
-The code above will get all user in cache and sorted it by its age ascendingly and then its fullName descendingly. The results is sorted array  of User
+The code above will get all users in cache and sorted it by its age ascendingly and then its fullName descendingly. The results are sorted array  of User
 
 You can add the limit too
 
@@ -213,7 +213,7 @@ let results = userCache.sorted { by in
 .getResults()
 ```
 
-The code above will limit the results maximum just 10
+The code above will limit the results maximum of just 10
 
 You can even combine the query if you want:
 
@@ -230,7 +230,7 @@ let results = userCache.findWhere { archive in
 .getResults()
 ```
 
-The code above will find all user in cache which its userName contains "premium" and its fullName is not nill, then sort it by its age ascendingly and then its fullName descendingly. The results are limited by 10.
+The code above will find all users in the cache whose userName contains "premium" and its fullName is not nill, then sort it by its age ascendingly and then its fullName descendingly. The results are limited by 10.
 
 here are the list of finder that can be used with `QueryFinder`:
 - `contains(string: )` match if string property contains given string
@@ -261,16 +261,16 @@ let results = userCache.findWhere { archive in
 
 ### Property Wrapper
 
-You could use `Archived` property wrapper to wrapped any property so if it assigned it will automatically store those property into `ArchiveManager`:
+You could use `Archived` property wrapper to wrapped any property so if it assigned it will automatically store those properties into `ArchiveManager`:
 
 ```swift
 @Archived var user: User?
 ```
 
-if you want the property have initial value based on the given primary key, just pass the key: 
+if you want the property to have an initial value based on the given primary key, just pass the key: 
 
 ```swift
 @Archived(initialPrimaryKey: "some") var user: User?
 ```
 
-Code above will try to get user with given key at first property load.
+Code above will try to get the user with the given key at first property load.
