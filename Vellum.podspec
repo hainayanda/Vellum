@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Vellum'
-  s.version          = '1.2.2'
+  s.version          = '1.2.3'
   s.summary          = 'Vellum is local persistent data storage for iOS'
 
 # This description is used to generate tags and improve search results.
@@ -21,11 +21,11 @@ Pod::Spec.new do |s|
   Vellum is local persistent data storage for iOS. It store data on memory and disk.
                        DESC
 
-  s.homepage         = 'https://github.com/nayanda1/Vellum'
+  s.homepage         = 'https://github.com/hainayanda/Vellum'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'nayanda' => 'nayanda1@outlook.com' }
-  s.source           = { :git => 'https://github.com/nayanda1/Vellum.git', :tag => s.version.to_s }
+  s.author           = { 'nayanda' => 'hainayanda@outlook.com' }
+  s.source           = { :git => 'https://github.com/hainayanda/Vellum.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '10.0'
