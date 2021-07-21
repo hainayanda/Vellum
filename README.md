@@ -4,9 +4,9 @@
 
 # Vellum
 
-[![codebeat badge](https://codebeat.co/badges/acb3125f-c1dc-4931-8c61-11780703e29a)](https://codebeat.co/projects/github-com-nayanda1-vellum-main)
-![build](https://github.com/nayanda1/Vellum/workflows/build/badge.svg)
-![test](https://github.com/nayanda1/Vellum/workflows/test/badge.svg)
+[![codebeat badge](https://codebeat.co/badges/acb3125f-c1dc-4931-8c61-11780703e29a)](https://codebeat.co/projects/github-com-hainayanda-vellum-main)
+![build](https://github.com/hainayanda/Vellum/workflows/build/badge.svg)
+![test](https://github.com/hainayanda/Vellum/workflows/test/badge.svg)
 [![SwiftPM Compatible](https://img.shields.io/badge/SwiftPM-Compatible-brightgreen)](https://swift.org/package-manager/)
 [![Version](https://img.shields.io/cocoapods/v/Vellum.svg?style=flat)](https://cocoapods.org/pods/Vellum)
 [![License](https://img.shields.io/cocoapods/l/Vellum.svg?style=flat)](https://cocoapods.org/pods/Vellum)
@@ -31,8 +31,8 @@ pod 'Vellum'
 ### Swift Package Manager from XCode
 
 - Add it using XCode menu **File > Swift Package > Add Package Dependency**
-- Add **https://github.com/nayanda1/Vellum.git** as Swift Package URL
-- Set rules at **version**, with **Up to Next Major** option and put **1.2.2** as its version
+- Add **https://github.com/hainayanda/Vellum.git** as Swift Package URL
+- Set rules at **version**, with **Up to Next Major** option and put **1.2.3** as its version
 - Click next and wait
 
 ### Swift Package Manager from Package.swift
@@ -41,7 +41,7 @@ Add as your target dependency in **Package.swift**
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/nayanda1/Vellum.git", .upToNextMajor(from: "1.2.2"))
+    .package(url: "https://github.com/hainayanda/Vellum.git", .upToNextMajor(from: "1.2.3"))
 ]
 ```
 
@@ -58,7 +58,7 @@ Then run swift build to build the dependency before you use it
 
 ## Author
 
-Nayanda Haberty, nayanda1@outlook.com
+Nayanda Haberty, hainayanda@outlook.com
 
 ## License
 
@@ -69,7 +69,7 @@ Vellum is using LRU Algorithm. It contains 2 type of storage which is `Memory St
 
 ### Store Data
 
-![alt text](https://github.com/nayanda1/Vellum/blob/main/Storing_Algorithm.png)
+![alt text](https://github.com/hainayanda/Vellum/blob/main/Storing_Algorithm.png)
 
 1. Store data to Memory Storage
 2. If Memory Storage is full, it will remove the oldest accessed data from memory until space is enough for new data
@@ -80,7 +80,7 @@ Vellum is using LRU Algorithm. It contains 2 type of storage which is `Memory St
 
 ### Getting Data
 
-![alt text](https://github.com/nayanda1/Vellum/blob/main/Accessing_Algorithm.png)
+![alt text](https://github.com/hainayanda/Vellum/blob/main/Accessing_Algorithm.png)
 
 1. Find data from the Memory Storage
 2. If the data exist, it will return the data and the step ended
