@@ -7,88 +7,28 @@
 
 import Foundation
 
-public struct DataSize: Equatable, Comparable {
+public struct DataSize: Hashable {
+    let bytes: Int
     
-    public var bits: Int { bytes * 8 }
-    public var nibbles: Int { bytes * 2 }
-    public var bytes: Int
-    public var kiloBytes: Double {
-        let bytes: Double = Double(self.bytes)
-        return bytes / 1024
+    public init(bytes: Int) {
+        self.bytes = bytes
     }
-    public var megaBytes: Double {
-        return kiloBytes / 1024
-    }
-    public var gigaBytes: Double {
-        return megaBytes / 1024
-    }
-    
-    public static var zero: DataSize {
-        .init(bytes: 0)
-    }
-    
-    public static func bits(_ count: Int) -> DataSize {
-        let bytes = count / 8
-        if count % 8 == 0 {
-            return .init(bytes: bytes)
-        }
-        return .init(bytes: bytes + 1)
-    }
-    
-    public static func bits(_ count: Double) -> DataSize {
-        let bytes = count / 8
-        if count.truncatingRemainder(dividingBy: 8) == 0 {
-            return .init(bytes: Int(bytes))
-        }
-        return .init(bytes: Int(bytes) + 1)
-    }
-    
-    public static func nibbles(_ count: Int) -> DataSize {
-        let numberOfBits = count * 4
-        return .bits(numberOfBits)
-    }
-    
-    public static func nibbles(_ count: Double) -> DataSize {
-        let numberOfBits = count * 4
-        return .bits(numberOfBits)
-    }
-    
-    public static func bytes(_ count: Int) -> DataSize {
-        .init(bytes: count)
-    }
-    
-    public static func bytes(_ count: Double) -> DataSize {
-        let numberOfBits = count * 8
-        return .bits(numberOfBits)
-    }
-    
-    public static func kiloBytes(_ count: Int) -> DataSize {
-        .init(bytes: count * 1024)
-    }
-    
-    public static func kiloBytes(_ count: Double) -> DataSize {
-        let numberOfBits = count * 8 * 1024
-        return .bits(numberOfBits)
-    }
-    
-    public static func megaBytes(_ count: Int) -> DataSize {
-        .init(bytes: count * 1024 * 1024)
-    }
-    
-    public static func megaBytes(_ count: Double) -> DataSize {
-        let numberOfBits = count * 8 * 1024 * 1024
-        return .bits(numberOfBits)
-    }
-    
-    public static func gigaBytes(_ count: Int) -> DataSize {
-        .init(bytes: count * 1024 * 1024 * 1024)
-    }
-    
-    public static func gigaBytes(_ count: Double) -> DataSize {
-        let numberOfBits = count * 8 * 1024 * 1024 * 1024
-        return .bits(numberOfBits)
-    }
-    
+}
+
+public extension DataSize {
+    @inlinable var bitsCount: Int { bytesCount * 8 }
+    @inlinable var nibblesCount: Int { bytesCount * 2 }
+    var bytesCount: Int { bytes }
+    @inlinable var kiloBytesCount: Double { Double(self.bytesCount) / 1024 }
+    @inlinable var megaBytesCount: Double { Double(bytesCount) / 1024 }
+    @inlinable var gigaBytesCount: Double { Double(bytesCount) / 1024 }
+}
+
+public extension DataSize {
+    @inlinable static var zero: DataSize { .init(bytes: 0) }
+}
+
+extension DataSize: Comparable {
     public static func < (lhs: DataSize, rhs: DataSize) -> Bool {
         return lhs.bytes < rhs.bytes
     }
@@ -123,10 +63,37 @@ extension DataSize: AdditiveArithmetic {
     public static func + (lhs: DataSize, rhs: DataSize) -> DataSize {
         return .init(bytes: lhs.bytes + rhs.bytes)
     }
-}
-
-extension Data {
-    public var dataSize: DataSize {
-        .init(bytes: count)
+    
+    public static func * (lhs: DataSize, rhs: DataSize) -> DataSize {
+        return .init(bytes: lhs.bytes * rhs.bytes)
+    }
+    
+    public static func / (lhs: DataSize, rhs: DataSize) -> DataSize {
+        return .init(bytes: lhs.bytes / rhs.bytes)
     }
 }
+
+public extension Data {
+    var dataSize: DataSize {
+        count.bytes
+    }
+}
+
+public extension Int {
+    @inlinable var bits: DataSize { .init(bytes: self / 8) }
+    @inlinable var nibbles: DataSize { .init(bytes: self / 4) }
+    @inlinable var bytes: DataSize { .init(bytes: self) }
+    @inlinable var kiloBytes: DataSize { (self * 1024).bytes }
+    @inlinable var megaBytes: DataSize { (self * 1024).kiloBytes }
+    @inlinable var gigaBytes: DataSize { (self * 1024).megaBytes }
+}
+
+public extension Double {
+    @inlinable var bits: DataSize { Int(self).bits }
+    @inlinable var nibbles: DataSize { Int(self).nibbles }
+    var bytes: DataSize { Int(self).bytes }
+    @inlinable var kiloBytes: DataSize { (self * 1024).bytes }
+    @inlinable var megaBytes: DataSize { (self * 1024).kiloBytes }
+    @inlinable var gigaBytes: DataSize { (self * 1024).megaBytes }
+}
+

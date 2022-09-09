@@ -1,0 +1,6 @@
+framework module Gizmo {
+  umbrella header "Gizmo-umbrella.h"
+
+  export *
+  module * { export * }
+}
